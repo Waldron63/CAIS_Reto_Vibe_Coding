@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
 import AppointmentCard from './AppointmentCard';
+import { getAppointmentSnapshotOwners, getPatientOwners } from '../utils/owners';
 
 export default function AppointmentList({
   appointments,
   patients,
+  owners = [],
   onUpdateStatus,
   onDeleteAppointment,
 }) {
@@ -78,6 +80,11 @@ export default function AppointmentList({
                 key={appointment.id}
                 appointment={appointment}
                 patient={linkedPatient}
+                guardians={
+                  linkedPatient
+                    ? getPatientOwners(linkedPatient, owners)
+                    : getAppointmentSnapshotOwners(appointment)
+                }
                 onUpdateStatus={onUpdateStatus}
                 onDeleteAppointment={onDeleteAppointment}
               />

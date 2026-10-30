@@ -1,11 +1,14 @@
 import React from 'react';
 import PatientCard from './PatientCard';
+import { getPatientOwners } from '../utils/owners';
 
 export default function PatientList({
   patients,
+  owners = [],
   medicalRecords = [],
   selectedPatientId,
   onSelectHistory,
+  onOpenOwner,
   onDeletePatient,
 }) {
   return (
@@ -14,7 +17,7 @@ export default function PatientList({
         <div>
           <h2 className="panel-title">Directorio de Pacientes</h2>
           <p className="panel-subtitle" style={{ marginBottom: 0 }}>
-            Haz clic en cualquier mascota para abrir su <strong>Historial Clínico</strong> y agregar notas médicas.
+            Haz clic en cualquier mascota para abrir su <strong>Historial Clínico</strong> y sus responsables, o en un responsable para ver todas sus mascotas.
           </p>
         </div>
       </div>
@@ -35,9 +38,11 @@ export default function PatientList({
               <PatientCard
                 key={patient.id}
                 patient={patient}
+                owners={getPatientOwners(patient, owners)}
                 recordsCount={count}
                 isSelected={patient.id === selectedPatientId}
                 onSelectHistory={onSelectHistory}
+                onOpenOwner={onOpenOwner}
                 onDeletePatient={onDeletePatient}
               />
             );

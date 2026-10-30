@@ -8,9 +8,11 @@ const SPECIES_CONFIG = {
 
 export default function PatientCard({
   patient,
+  owners = [],
   recordsCount = 0,
   isSelected = false,
   onSelectHistory,
+  onOpenOwner,
   onDeletePatient,
 }) {
   const speciesInfo = SPECIES_CONFIG[patient.species] || SPECIES_CONFIG.Otro;
@@ -30,6 +32,7 @@ export default function PatientCard({
       role="button"
       tabIndex={0}
       onKeyDown={(e) => {
+        if (e.target !== e.currentTarget) return;
         if (e.key === 'Enter' || e.key === ' ') {
           e.preventDefault();
           handleCardClick();
@@ -68,33 +71,47 @@ export default function PatientCard({
         </div>
       </div>
 
-      <div className="owner-box">
-        <div className="owner-info">
-          <p>👤 {patient.ownerName}</p>
-          <span>📞 {patient.ownerPhone}</span>
-        </div>
+      <div className="guardians-box" onClick={(e) => e.stopPropagation()}>
+        <span className="guardians-label">
+          {owners.length === 1 ? 'Responsable' : 'Responsables'}
+        </span>
+        <ul className="guardian-list">
+          {owners.map((owner) => (
+            <li key={owner.id}>
+              <button
+                type="button"
+                className="guardian-chip"
+                onClick={() => onOpenOwner(owner.id)}
+                title={`Ver las mascotas de ${owner.name}`}
+              >
+                <span>👤 {owner.name}</span>
+                <small>📞 {owner.phone}</small>
+              </button>
+            </li>
+          ))}
+        </ul>
+      </div>
 
-        <div
-          className="patient-card-actions"
-          onClick={(e) => e.stopPropagation()}
+      <div
+        className="patient-card-actions"
+        onClick={(e) => e.stopPropagation()}
+      >
+        <button
+          type="button"
+          className="btn-history"
+          onClick={() => onSelectHistory && onSelectHistory(patient.id)}
         >
-          <button
-            type="button"
-            className="btn-history"
-            onClick={() => onSelectHistory && onSelectHistory(patient.id)}
-          >
-            📋 Historial Clínico
-          </button>
+          📋 Historial Clínico
+        </button>
 
-          <button
-            type="button"
-            className="btn-delete"
-            onClick={() => onDeletePatient(patient.id)}
-            aria-label={`Eliminar a ${patient.petName}`}
-          >
-            Eliminar
-          </button>
-        </div>
+        <button
+          type="button"
+          className="btn-delete"
+          onClick={() => onDeletePatient(patient.id)}
+          aria-label={`Eliminar a ${patient.petName}`}
+        >
+          Eliminar
+        </button>
       </div>
     </article>
   );

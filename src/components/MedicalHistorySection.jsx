@@ -1,7 +1,10 @@
 import React, { useState, useEffect } from 'react';
+import { formatOwnerNames, getPatientOwners } from '../utils/owners';
 
 export default function MedicalHistorySection({
   patients,
+  owners = [],
+  onOpenOwner,
   selectedPatientId,
   onSelectPatient,
   medicalRecords,
@@ -27,6 +30,9 @@ export default function MedicalHistorySection({
   }, [patients, selectedPatientId, onSelectPatient]);
 
   const currentPatient = patients.find((p) => p.id === selectedPatientId) || null;
+  const currentOwners = currentPatient
+    ? getPatientOwners(currentPatient, owners)
+    : [];
 
   const patientRecords = medicalRecords
     .filter((record) => record.patientId === selectedPatientId)
@@ -120,7 +126,8 @@ export default function MedicalHistorySection({
           >
             {patients.map((p) => (
               <option key={p.id} value={p.id}>
-                {p.petName} ({p.species} - {p.breed}) — Prop: {p.ownerName}
+                {p.petName} ({p.species} - {p.breed}) — Resp.:{' '}
+                {formatOwnerNames(getPatientOwners(p, owners))}
               </option>
             ))}
           </select>
@@ -136,10 +143,26 @@ export default function MedicalHistorySection({
               Raza: <strong>{currentPatient.breed}</strong> • Edad:{' '}
               <strong>{currentPatient.age}</strong>
             </p>
-            <p>
-              Propietario: <strong>{currentPatient.ownerName}</strong> (📞{' '}
-              {currentPatient.ownerPhone})
-            </p>
+            <div className="guardians-box">
+              <span className="guardians-label">
+                {currentOwners.length === 1 ? 'Responsable' : 'Responsables'}
+              </span>
+              <ul className="guardian-list">
+                {currentOwners.map((owner) => (
+                  <li key={owner.id}>
+                    <button
+                      type="button"
+                      className="guardian-chip"
+                      onClick={() => onOpenOwner && onOpenOwner(owner.id)}
+                      title={`Ver las mascotas de ${owner.name}`}
+                    >
+                      <span>👤 {owner.name}</span>
+                      <small>📞 {owner.phone}</small>
+                    </button>
+                  </li>
+                ))}
+              </ul>
+            </div>
           </div>
         )}
 

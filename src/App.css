@@ -763,6 +763,152 @@ body {
   background: #e2e8f0;
 }
 
+/* Responsables (relación muchos a muchos con las mascotas) */
+.badge-green {
+  background: var(--success-light);
+  color: var(--success);
+}
+
+.guardians-fieldset {
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 0.85rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+  min-width: 0;
+}
+
+.guardians-fieldset legend {
+  font-size: 0.85rem;
+  font-weight: 700;
+  padding: 0 0.4rem;
+}
+
+.guardian-row {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  padding: 0.75rem;
+  background: #f8fafc;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+}
+
+.guardian-row-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.85rem;
+}
+
+.btn-remove-guardian {
+  background: transparent;
+  color: var(--danger);
+  border: 1px solid #fecaca;
+  padding: 0.25rem 0.6rem;
+  border-radius: 6px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.btn-remove-guardian:hover {
+  background: var(--danger);
+  color: #fff;
+  border-color: var(--danger);
+}
+
+.btn-add-guardian {
+  background: var(--primary-light);
+  color: var(--primary-hover);
+  border: 1px dashed var(--primary);
+  padding: 0.55rem 0.8rem;
+  border-radius: 8px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.btn-add-guardian:hover {
+  background: var(--primary);
+  color: #fff;
+}
+
+.form-group input:disabled {
+  background: #f1f5f9;
+  color: var(--text-muted);
+}
+
+.guardians-box {
+  border-top: 1px solid var(--border);
+  padding-top: 0.75rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.selected-patient-summary .guardians-box {
+  border-top: none;
+  padding-top: 0.25rem;
+}
+
+.guardians-label {
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--text-muted);
+}
+
+.guardian-list {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+
+.guardian-chip {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 0.35rem 0.65rem;
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--text-main);
+  cursor: pointer;
+  text-align: left;
+  transition: border-color 0.15s, background 0.15s;
+}
+
+.guardian-chip small {
+  font-size: 0.75rem;
+  font-weight: 400;
+  color: var(--text-muted);
+}
+
+.guardian-chip:hover {
+  border-color: var(--primary);
+  background: var(--primary-light);
+}
+
+.owner-info > div + div {
+  margin-top: 0.35rem;
+}
+
+.owner-pets-preview {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+
+.owner-section-title {
+  font-size: 0.95rem;
+  font-weight: 700;
+}
+
 /* Estado vacío */
 .empty-state {
   text-align: center;

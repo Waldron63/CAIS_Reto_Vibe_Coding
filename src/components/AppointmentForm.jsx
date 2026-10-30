@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { formatOwnerNames, getPatientOwners } from '../utils/owners';
 
 const VISIT_REASONS = [
   'Control general',
@@ -9,7 +10,7 @@ const VISIT_REASONS = [
   'Baño y Peluquería',
 ];
 
-export default function AppointmentForm({ patients, onAddAppointment }) {
+export default function AppointmentForm({ patients, owners = [], onAddAppointment }) {
   const [formData, setFormData] = useState({
     patientId: patients.length > 0 ? patients[0].id : '',
     reason: 'Control general',
@@ -58,8 +59,12 @@ export default function AppointmentForm({ patients, onAddAppointment }) {
       patientId: formData.patientId,
       petNameSnapshot: selectedPatient ? selectedPatient.petName : 'Mascota',
       speciesSnapshot: selectedPatient ? selectedPatient.species : 'Otro',
-      ownerNameSnapshot: selectedPatient ? selectedPatient.ownerName : '',
-      ownerPhoneSnapshot: selectedPatient ? selectedPatient.ownerPhone : '',
+      ownersSnapshot: selectedPatient
+        ? getPatientOwners(selectedPatient, owners).map(({ name, phone }) => ({
+            name,
+            phone,
+          }))
+        : [],
       reason: formData.reason,
       date: formData.date,
       time: formData.time,
@@ -106,7 +111,8 @@ export default function AppointmentForm({ patients, onAddAppointment }) {
             >
               {patients.map((patient) => (
                 <option key={patient.id} value={patient.id}>
-                  {patient.petName} ({patient.species}) — Prop: {patient.ownerName}
+                  {patient.petName} ({patient.species}) — Resp.:{' '}
+                  {formatOwnerNames(getPatientOwners(patient, owners))}
                 </option>
               ))}
             </select>

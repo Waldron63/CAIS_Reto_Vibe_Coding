@@ -27,6 +27,7 @@ const REASON_ICONS = {
 export default function AppointmentCard({
   appointment,
   patient,
+  guardians = [],
   onUpdateStatus,
   onDeleteAppointment,
 }) {
@@ -36,8 +37,6 @@ export default function AppointmentCard({
   // Usar datos vivos del paciente si sigue registrado, o el snapshot guardado
   const petName = patient ? patient.petName : appointment.petNameSnapshot;
   const species = patient ? patient.species : appointment.speciesSnapshot;
-  const ownerName = patient ? patient.ownerName : appointment.ownerNameSnapshot;
-  const ownerPhone = patient ? patient.ownerPhone : appointment.ownerPhoneSnapshot;
 
   return (
     <article className={`appointment-card status-border-${appointment.status.toLowerCase()}`}>
@@ -76,8 +75,12 @@ export default function AppointmentCard({
 
       <div className="owner-box">
         <div className="owner-info">
-          <p>👤 {ownerName}</p>
-          <span>📞 {ownerPhone}</span>
+          {guardians.map((guardian) => (
+            <div key={`${guardian.name}-${guardian.phone}`}>
+              <p>👤 {guardian.name}</p>
+              <span>📞 {guardian.phone}</span>
+            </div>
+          ))}
         </div>
 
         <div className="appointment-actions">
