@@ -47,7 +47,7 @@ npm ci
 npm run dev
 ```
 
-`npm ci` reinstala las dependencias exactas de `package-lock.json` y funciona igual en Windows, macOS y Linux (usa `npm ci` y no `npm install`: el repositorio trae una carpeta `node_modules` con binarios de Windows que hay que reemplazar).
+`npm ci` reinstala las dependencias exactas de `package-lock.json` y funciona igual en Windows, macOS y Linux.
 
 Abre **http://localhost:5173/** en el navegador. La app trae datos de ejemplo (Max, Luna y Coco) para poder probarla de inmediato.
 
@@ -110,12 +110,10 @@ CAIS_Reto_Vibe_Coding/
 2. Realiza tus cambios y súbelos: `git commit -m "Agrega nueva funcionalidad"` y `git push origin feat/nueva-funcionalidad`
 3. Abre un Pull Request y espera la revisión de otro miembro del equipo.
 
-Si subes directamente a `main` (como en los retos), trae antes lo último con `git pull --rebase origin main`; así el `git push` no es rechazado si otra persona ya subió cambios. Nunca fuerces el push de `main`.
-
 ---
 
 ## 📖 Notas
 
-- El archivo `.gitignore` evita subir: dependencias (`node_modules/`), builds (`dist/`), variables de entorno y secretos (`.env*`), logs, archivos de IDE y del sistema (`.idea/`, `.vscode/`, `.DS_Store`) y notas personales como `prompts.txt`. `package-lock.json` **sí** se sube. Ojo: `.gitignore` no afecta a archivos que ya estaban versionados (`node_modules/` lo está desde el Reto 1; para dejar de versionarlo usa `git rm -r --cached node_modules`).
+- El archivo `.gitignore` evita subir: dependencias (`node_modules/`), builds (`dist/`), variables de entorno y secretos (`.env*`), logs, archivos de IDE y del sistema (`.idea/`, `.vscode/`, `.DS_Store`) y notas personales como `prompts.txt`. `package-lock.json` **sí** se sube.
 
 - Los datos se guardan en el navegador (`localStorage`, claves `vet_patients_v2`, `vet_owners_v2`, `vet_appointments_v1` y `vet_medical_records_v1`), por lo que se conservan al recargar pero son propios de cada navegador.
